@@ -6,7 +6,7 @@ from pydub import AudioSegment  # library to edit/convert/down-sample ... audio
 
 WAV_FILE = "humble.wav"  # file we want to play through the filter (must be wav)
 ARDUINO_PORT = "COM10"  # Serial port to which Arduino is connected
-CHUNK_SIZE = 128  # how many bytes to read at once.
+CHUNK_SIZE = 64 + 32 + 8  # how many bytes to read at once.
 
 """At high CHUNK sizes the Arduino Filter will not function properly.
 At very low CHUNK sizes processing will be too slow"""
@@ -16,7 +16,7 @@ print "Pre-processing..."
 sound = AudioSegment.from_mp3(WAV_FILE)  # read file
 sound = sound.set_channels(1)  # convert to Mono channel
 
-sound = sound.set_frame_rate(10000)  # Set frame-rate; (sample rate)
+sound = sound.set_frame_rate(8000)  # Set frame-rate; (sample rate)
 # At high rates Arduino won't be able to process in real time
 
 sound = sound.set_sample_width(1)  # Convert to 8-bit Audio
